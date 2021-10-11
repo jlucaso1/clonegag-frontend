@@ -1,40 +1,52 @@
 <template>
-  <q-form @submit="onSubmit" class="q-gutter-md">
-    <q-input
-      filled
-      v-model="registerInput.name"
-      label="Seu nome"
-      hint="Seu nome"
-      lazy-rules
-      :rules="[(val) => (val && val.length > 0) || 'Digite algo']"
-    />
-    <q-input
-      filled
-      v-model="registerInput.email"
-      label="Seu email"
-      hint="Seu email"
-      lazy-rules
-      :rules="[(val) => (val && val.length > 0) || 'Digite algo']"
-    />
+  <q-page class="flex full-height items-center justify-center">
+    <q-form
+      @submit="onSubmit"
+      class="
+        q-gutter-xs
+        column
+        items-center
+        justify-center
+        max-width-599
+        full-width
+      "
+    >
+      <q-input
+        class="full-width"
+        filled
+        v-model="registerInput.name"
+        label="Seu nome"
+        lazy-rules
+        :rules="[(val) => (val && val.length > 0) || 'Digite algo']"
+      />
+      <q-input
+        class="full-width"
+        filled
+        v-model="registerInput.email"
+        label="Seu email"
+        lazy-rules
+        :rules="[(val) => (val && val.length > 0) || 'Digite algo']"
+      />
 
-    <q-input
-      filled
-      type="password"
-      v-model="registerInput.password"
-      label="Sua senha"
-      lazy-rules
-      :rules="[(val) => (val && val.length >= 8) || 'Minimo 8 algoritmos']"
-    />
+      <q-input
+        class="full-width"
+        filled
+        type="password"
+        v-model="registerInput.password"
+        label="Sua senha"
+        lazy-rules
+        :rules="[(val) => (val && val.length >= 8) || 'Minimo 8 algoritmos']"
+      />
 
-    <div>
       <q-btn
+        class="full-width"
         :loading="registerLoading"
-        label="Submit"
+        label="Registrar-se"
         type="submit"
         color="primary"
       />
-    </div>
-  </q-form>
+    </q-form>
+  </q-page>
 </template>
 
 <script lang="ts">

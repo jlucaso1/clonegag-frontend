@@ -21,10 +21,16 @@ export const useStore = defineStore('main', {
       this.access_token = null;
       this.loggedUser = null;
     },
-    fetchPosts() {
-      const { result, onResult } = useQuery(QUERY_POSTS);
-      onResult(() => {
-        this.posts = useResult<Post[]>(result).value as Post[];
+    async fetchPosts() {
+      const { result, onResult, onError } = useQuery(QUERY_POSTS);
+      await new Promise((resolve, reject) => {
+        onResult(() => {
+          this.posts = useResult<Post[]>(result).value as Post[];
+          resolve(this.posts);
+        });
+        onError(() => {
+          reject({ message: 'Error fetching posts' });
+        });
       });
     },
     deletePost(postId: number) {

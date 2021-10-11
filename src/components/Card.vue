@@ -25,7 +25,7 @@
             :src="post.src"
             :width="`${lt.sm ? '100%' : '50vw'}`"
           />
-          <player v-else :src="post.src" />
+          <player v-else :src="post.src" class="full-width" />
         </q-card-section>
         <q-card-section class="flex items-center">
           <div class="flex column items-center">
@@ -53,10 +53,13 @@
     </transition>
   </div>
   <q-dialog v-model="view_likes">
-    <q-list bordered separator>
+    <q-list bordered separator v-if="post.likes.length" class="bg-dark">
       <q-item clickable v-ripple v-for="like in post.likes" :key="like.id">
         <q-item-section>{{ like.name }}</q-item-section>
       </q-item>
+    </q-list>
+    <q-list bordered separator v-else class="bg-dark">
+      <q-item>Nenhuma curtida</q-item>
     </q-list>
   </q-dialog>
 </template>

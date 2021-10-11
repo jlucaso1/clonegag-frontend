@@ -1,12 +1,24 @@
 <template>
-  <q-page class="flex justify-center">
-    <q-form class="main" @submit="onSubmit">
+  <q-page class="flex full-height items-center justify-center">
+    <q-form
+      class="
+        q-gutter-xs
+        column
+        items-center
+        justify-center
+        max-width-599
+        full-width
+      "
+      @submit="onSubmit"
+    >
       <q-input
+        class="full-width"
         v-model="post.title"
         label="Título"
         :rules="[(val) => (val && val.length > 0) || 'Digite um título!']"
       />
       <q-select
+        class="full-width"
         label="Tipo de post"
         v-model="post.type"
         :options="options"
@@ -17,12 +29,19 @@
         map-options
       />
       <q-input
+        class="full-width"
         v-model="post.src"
         label="Link da Imagem/Video"
         :rules="[(val) => (val && val.length > 0) || 'Digite a url da media!']"
       />
 
-      <q-btn type="submit" label="Criar" :loading="addPostLoading" />
+      <q-btn
+        color="positive"
+        class="full-width"
+        type="submit"
+        label="Postar meme"
+        :loading="addPostLoading"
+      />
     </q-form>
   </q-page>
 </template>
