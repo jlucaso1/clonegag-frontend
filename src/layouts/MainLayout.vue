@@ -34,13 +34,18 @@
             color="white"
             text-color="black"
             dense
-            class="q-pa-sm"
+            class="q-pa-sm gt-xs"
             to="/addpost"
           >
             <div>Adicionar meme</div>
           </q-btn>
-          <q-btn color="red" dense class="q-pa-sm" @click="reset">
+          <q-btn color="red" dense class="q-pa-sm gt-xs" @click="reset">
             <div>Logout</div>
+          </q-btn>
+          <q-btn dense round to="/me">
+            <q-avatar>
+              <img :src="picture" />
+            </q-avatar>
           </q-btn>
         </div>
         <div class="flex items-center q-gutter-x-md" v-else>
@@ -83,6 +88,7 @@ export default defineComponent({
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
       isLoggedIn: computed(() => store.isLoggedIn),
+      picture: computed(() => store.picture),
       async reset() {
         store.logout();
         await router.push('/');

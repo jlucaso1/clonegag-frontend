@@ -8,4 +8,10 @@ export type User = {
   email: string;
 
   posts: Post[];
+
+  profile: {
+    id: number;
+    bio?: string;
+    picture?: string;
+  };
 };

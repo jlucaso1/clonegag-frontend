@@ -15,6 +15,14 @@ export const useStore = defineStore('main', {
   },
   getters: {
     isLoggedIn: (state) => state.access_token !== null,
+    picture: (state) => {
+      if (!state.loggedUser)
+        return 'https://www.aaronandpartners.com/wp-content/uploads/blank-profile-picture-973460_640-1-e1599559219598-1.png';
+      if (state.loggedUser.profile.picture) {
+        return state.loggedUser.profile.picture;
+      }
+      return 'https://www.aaronandpartners.com/wp-content/uploads/blank-profile-picture-973460_640-1-e1599559219598-1.png';
+    },
   },
   actions: {
     logout() {

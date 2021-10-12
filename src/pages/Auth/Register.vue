@@ -86,7 +86,7 @@ export default {
             ...registerInput,
           },
         })
-          .then((result) => {
+          .then(async (result) => {
             if (!result?.data) return;
             const { access_token, user } = result.data.register;
             store.access_token = access_token;
@@ -95,7 +95,7 @@ export default {
               message: 'Logado com sucesso!',
               type: 'positive',
             });
-            void router.push('/');
+            await router.push('/');
           })
           .catch((err: GraphQLError) => {
             Notify.create({

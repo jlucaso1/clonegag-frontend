@@ -8,6 +8,9 @@ export const MUTATION_LOGIN = gql`
         id
         name
         email
+        profile {
+          picture
+        }
       }
     }
   }
@@ -20,6 +23,11 @@ export const MUTATION_REGISTER = gql`
         id
         name
         email
+        profile {
+          id
+          bio
+          picture
+        }
       }
     }
   }
@@ -31,6 +39,11 @@ export const QUERY_ME = gql`
       id
       name
       email
+      profile {
+        id
+        bio
+        picture
+      }
     }
   }
 `;
