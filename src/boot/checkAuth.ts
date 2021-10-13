@@ -1,14 +1,12 @@
-import { boot } from 'quasar/wrappers';
 import {
-  useQuery,
-  provideApolloClient,
-  useResult,
+  provideApolloClient, useQuery, useResult
 } from '@vue/apollo-composable';
-import { QUERY_ME } from 'src/graphql/auth';
-import { apolloClient } from './graphql';
-import { User } from 'src/entities';
-import { useStore } from 'src/stores/main';
 import { Loading } from 'quasar';
+import { boot } from 'quasar/wrappers';
+import { User } from 'src/entities';
+import { QUERY_ME } from 'src/graphql/auth';
+import { useStore } from 'src/stores/main';
+import { apolloClient } from './graphql';
 
 provideApolloClient(apolloClient);
 export default boot(async () => {
@@ -30,6 +28,8 @@ export default boot(async () => {
         const store = useStore();
         store.loggedUser = user;
       }
+    } else {
+      localStorage.removeItem('access_token');
     }
   }
   Loading.hide();

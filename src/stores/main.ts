@@ -1,7 +1,7 @@
+import { useQuery, useResult } from '@vue/apollo-composable';
+import { useStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { Post, User } from 'src/entities';
-import { useStorage } from '@vueuse/core';
-import { useQuery, useResult } from '@vue/apollo-composable';
 import { QUERY_POSTS } from 'src/graphql/post';
 
 export const useStore = defineStore('main', {

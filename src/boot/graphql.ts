@@ -1,16 +1,18 @@
-import { DefaultApolloClient } from '@vue/apollo-composable';
-import { boot } from 'quasar/wrappers';
 import {
   ApolloClient,
   createHttpLink,
-  InMemoryCache,
+  InMemoryCache
 } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
+import { DefaultApolloClient } from '@vue/apollo-composable';
+import { boot } from 'quasar/wrappers';
 
 // HTTP connection to the API
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-  uri: 'http://localhost:3000/graphql',
+  uri: process.env.DEV
+    ? 'http://localhost:3000/graphql'
+    : 'https://clonegag.herokuapp.com/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
