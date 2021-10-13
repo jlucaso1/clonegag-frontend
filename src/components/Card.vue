@@ -60,7 +60,9 @@
       </q-item>
     </q-list>
     <q-list bordered separator v-else class="bg-dark">
-      <q-item>Nenhuma curtida</q-item>
+      <q-item>
+        <q-item-section>Nenhuma curtida :(</q-item-section>
+      </q-item>
     </q-list>
   </q-dialog>
 </template>
