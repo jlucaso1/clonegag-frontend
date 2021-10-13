@@ -37,6 +37,7 @@
               dense
               size="lg"
               :disable="!isLoggedIn"
+              :loading="loadingLikePost"
             />
             <div class="cursor-pointer" @click="view_likes = true">
               Ver curtidas
@@ -89,9 +90,10 @@ export default defineComponent({
   setup(props) {
     const { mutate: deletePost } = useMutation(MUTATION_DELETE_POST);
 
-    const { mutate: likePost } = useMutation<LikeResponse>(MUTATION_LIKE_POST, {
-      fetchPolicy: 'no-cache',
-    });
+    const { mutate: likePost, loading: loadingLikePost } =
+      useMutation<LikeResponse>(MUTATION_LIKE_POST, {
+        fetchPolicy: 'no-cache',
+      });
 
     const store = useStore();
 
@@ -102,6 +104,7 @@ export default defineComponent({
     return {
       lt,
       view_likes,
+      loadingLikePost,
       onLikePost(postId: number) {
         if (!isLoggedIn.value) {
           return Notify.create({
