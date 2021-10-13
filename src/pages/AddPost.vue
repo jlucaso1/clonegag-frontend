@@ -15,7 +15,7 @@
         class="full-width"
         v-model="post.title"
         label="Título"
-        :rules="[(val) => (val && val.length > 0) || 'Digite um título!']"
+        :rules="[(val) => (val && val.length >= 5) || 'Mínimo 5 caracteres']"
       />
       <q-select
         class="full-width"
