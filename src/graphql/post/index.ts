@@ -29,7 +29,6 @@ export const MUTATION_LIKE_POST = gql`
   mutation likePost($postId: Int!) {
     likePost(postId: $postId) {
       id
-      title
       likes {
         id
         name
@@ -42,13 +41,6 @@ export const MUTATION_CREATE_POST = gql`
   mutation createPost($createPostInput: CreatePostInput!) {
     createPost(createPostInput: $createPostInput) {
       id
-      title
-      type
-      src
-      user {
-        id
-        name
-      }
     }
   }
 `;
