@@ -1038,10 +1038,10 @@
   resolved "https://registry.yarnpkg.com/@positron/stack-trace/-/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
   integrity sha1-FPzHEqUwA475vhzmlSMVqDn0Zqg=
 
-"@quasar/app@3.1.3":
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-3.1.3.tgz#beed697c283beeab215c9b70ef1bdaa7f3f75bb7"
-  integrity sha512-PVuGMwhgCiY4aX9smw7dCfl8uc4AH1tYqTS/+BFw/0RU64DFYvPMXwwb2WFs3o/CXvuGXssrIrJJ+eMmoZ9ktg==
+"@quasar/app@3.1.5":
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-3.1.5.tgz#a69f1fe1635fea37d53befc08cbacf657d926581"
+  integrity sha512-Nbu2sUQiNKGQl/CnRkkeFN58YVTec13cUlCxbRXGdUhW3yMEIQx7bU++d4S9bQgDXsOQudG/HCRLlH+97g9umw==
   dependencies:
     "@quasar/babel-preset-app" "2.0.1"
     "@quasar/fastclick" "1.1.4"
@@ -1105,7 +1105,7 @@
     url-loader "4.1.1"
     vue "3.2.20"
     vue-loader "16.5.0"
-    vue-router "4.0.11"
+    vue-router "4.0.12"
     vue-style-loader "4.1.3"
     webpack "^5.58.1"
     webpack-bundle-analyzer "4.4.2"
@@ -1484,12 +1484,7 @@
     "@vue/compiler-dom" "3.2.20"
     "@vue/shared" "3.2.20"
 
-"@vue/devtools-api@^6.0.0-beta.14":
-  version "6.0.0-beta.17"
-  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.0.0-beta.17.tgz#d4b9eb02c670d39a4532f4bb3c8517abce3fcb82"
-  integrity sha512-hwGY4Xxc2nl34OyNH7l2VO8/ja3R78B8bcbaBQnZljSju5Z0Bm9HTt+/fQao+TUrs3gfNrrQrY3euWqiaG8chw==
-
-"@vue/devtools-api@^6.0.0-beta.18":
+"@vue/devtools-api@^6.0.0-beta.18", "@vue/devtools-api@^6.0.0-beta.19":
   version "6.0.0-beta.19"
   resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.0.0-beta.19.tgz#f8e88059daa424515992426a0c7ea5cde07e99bf"
   integrity sha512-ObzQhgkoVeoyKv+e8+tB/jQBL2smtk/NmC9OmFK8UqdDpoOdv/Kf9pyDWL+IFyM7qLD2C75rszJujvGSPSpGlw==
@@ -1543,17 +1538,17 @@
   integrity sha512-FbpX+hD5BvXCQerEYO7jtAGHlhAkhTQ4KIV73kmLWNlawWhTiVuQxizgVb0BOkX5oG9cIRZ42EG++d/k/Efp0w==
 
 "@vueuse/core@^6.5.3":
-  version "6.5.3"
-  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-6.5.3.tgz#15848eaccad18652df4cb4b6ccae7bd7921a0c7e"
-  integrity sha512-o3CTu4nEqs371sDY5qLBX0r4QOm6GVpm3ApQc2Y+p8OMI2rRGartQo8xRykpUfsyq602A+SVtm/wxIWBkD/KCQ==
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-6.7.1.tgz#4e8fcbfb29731b9d6f087a7aea21cff73021fb47"
+  integrity sha512-rjHnyJB700WOjFeKwWaBZyGvv544flbNm0Bb0WvF1h9DfCgWb4UPY6BX2Fqox4vlRKwWIIevSxBELMwAvmnxVA==
   dependencies:
-    "@vueuse/shared" "6.5.3"
+    "@vueuse/shared" "6.7.1"
     vue-demi "*"
 
-"@vueuse/shared@6.5.3":
-  version "6.5.3"
-  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-6.5.3.tgz#6503fa4bfbf45d0616bacedb8a4bd003f01da73b"
-  integrity sha512-ChOKu3mECyZeqGJ/gHVm0CaHoZK5/TwNZr1ZM/aqH+RaRNQvC1qkLf1/8PBugzN3yRgC3BtZ/M1kLpGe/BFylw==
+"@vueuse/shared@6.7.1":
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-6.7.1.tgz#02cfb4ccbadec1bfd85ad0d9b6076105ba3b22e9"
+  integrity sha512-mQxtocLhGZLXf3NRoksqscZ+F7P09XJgV9/CrjjLjgcv+C7jyweRVuhlwe6FcK7mwtl5euANb5SvQh5iO0bBdA==
   dependencies:
     vue-demi "*"
 
@@ -4802,11 +4797,11 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.3:
   integrity sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw==
 
 pinia@^2.0.0-rc.12:
-  version "2.0.0-rc.12"
-  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.0-rc.12.tgz#2be8b49330b768d278ce84a0812d796188fcef65"
-  integrity sha512-1MqXgyiju5fcJBfNO+aU5GP24ZxoaC5bjosSTVnb13fJYu8CfFxCZ/XWwMoD1QnZFq6JGbYigZNCaJDL2tmzQg==
+  version "2.0.0-rc.14"
+  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.0-rc.14.tgz#c5c004c60b56806f465cae1bacce3922cf3163ac"
+  integrity sha512-vM8vYMsFdFDK1ND6j4+f7TC4hKB8moAjyn9HcHKqdOf1bHN4fL5g9Mz/8t8U0pEqnUwR2AU8yxD0gr+uU18x3g==
   dependencies:
-    "@vue/devtools-api" "^6.0.0-beta.18"
+    "@vue/devtools-api" "^6.0.0-beta.19"
     vue-demi "*"
 
 pkg-dir@^4.1.0:
@@ -5171,10 +5166,10 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-quasar@2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.1.1.tgz#1c6617d6e8c02aad3e0239eb0887ec39fe891696"
-  integrity sha512-x7J1uAEPwVpm5UiL/T74jZoqQYQ5y77t+ymIII+xCZotU2el4mX5QTA/ptduyhxNumlpIzdVBXyPPizqcT2UGQ==
+quasar@2.1.8:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.1.8.tgz#4d860864573fa4bdf65b0dec24b1e97b99e4fca4"
+  integrity sha512-O4WJh3KnYuUt2dkzHf4XsVP91+40HPwz3DGKnL8uOD4rahag/SVOSkt+Y+CxhnW0ERQVQhK1eLTtHT16K/vebQ==
 
 querystring@0.2.0:
   version "0.2.0"
@@ -6167,12 +6162,12 @@ vue-loader@16.5.0:
     hash-sum "^2.0.0"
     loader-utils "^2.0.0"
 
-vue-router@4.0.11, vue-router@^4.0.11:
-  version "4.0.11"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.11.tgz#cd649a0941c635281763a20965b599643ddc68ed"
-  integrity sha512-sha6I8fx9HWtvTrFZfxZkiQQBpqSeT+UCwauYjkdOQYRvwsGwimlQQE2ayqUwuuXGzquFpCPoXzYKWlzL4OuXg==
+vue-router@4.0.12, vue-router@^4.0.11:
+  version "4.0.12"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.12.tgz#8dc792cddf5bb1abcc3908f9064136de7e13c460"
+  integrity sha512-CPXvfqe+mZLB1kBWssssTiWg4EQERyqJZes7USiqfW9B5N2x+nHlnsM1D3b5CaJ6qgCvMmYJnz+G0iWjNCvXrg==
   dependencies:
-    "@vue/devtools-api" "^6.0.0-beta.14"
+    "@vue/devtools-api" "^6.0.0-beta.18"
 
 vue-style-loader@4.1.3:
   version "4.1.3"
