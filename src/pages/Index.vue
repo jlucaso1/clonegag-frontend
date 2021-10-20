@@ -1,14 +1,16 @@
 <template>
   <q-page class="flex justify-center">
+    <q-spinner v-if="loading" color="white" size="lg" class="absolute-center" />
+
     <div
-      v-if="posts"
+      v-else-if="posts?.length"
       class="main"
       :class="`${lt.md ? 'q-py-md q-gutter-y-md' : 'q-py-lg q-gutter-y-lg'}`"
     >
       <card v-for="post in posts" :key="post.id" :post="post" />
     </div>
 
-    <div v-else-if="!loading" class="flex column items-center justify-center">
+    <div v-else class="flex column items-center justify-center">
       <div class="text-h6">Nenhum meme encontrado...</div>
       <q-btn
         color="white"
@@ -20,7 +22,6 @@
         <div>Adicionar meme</div>
       </q-btn>
     </div>
-    <q-spinner v-else color="white" size="lg" class="absolute-center" />
   </q-page>
 </template>
 
