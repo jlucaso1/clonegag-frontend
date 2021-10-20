@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { useMutation } from '@vue/apollo-composable';
+import { useMutation } from '@urql/vue';
 import { Notify } from 'quasar';
 import { Post } from 'src/entities';
 import { MUTATION_CREATE_POST } from 'src/graphql/post';
@@ -68,7 +68,7 @@ const options = [
 export default defineComponent({
   name: 'AddPost',
   setup() {
-    const { mutate: addPost, loading: addPostLoading } =
+    const { executeMutation: addPost, fetching: addPostLoading } =
       useMutation(MUTATION_CREATE_POST);
     const router = useRouter();
 
@@ -78,23 +78,21 @@ export default defineComponent({
       post,
       addPostLoading,
       options,
-      onSubmit() {
-        addPost({
+      async onSubmit() {
+        const { error } = await addPost({
           createPostInput: post,
-        })
-          .then(() => {
-            Notify.create({
-              message: 'Postagem feita com sucesso!',
-              color: 'success',
-            });
-            void router.push('/');
-          })
-          .catch(() => {
-            Notify.create({
-              message: 'Error: Falha ao criar a postagem',
-              color: 'negative',
-            });
+        });
+        if (error) {
+          return Notify.create({
+            message: error.message,
+            color: 'negative',
           });
+        }
+        Notify.create({
+          message: 'Postagem feita com sucesso!',
+          color: 'success',
+        });
+        void router.push('/');
       },
     };
   },

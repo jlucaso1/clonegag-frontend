@@ -70,15 +70,18 @@
 <script lang="ts">
 import { defineComponent, PropType, computed, ref } from 'vue';
 import { Post } from 'src/entities';
-import { useMutation } from '@vue/apollo-composable';
 import { lt } from 'src/utils';
 import Player from './Player.vue';
 import { MUTATION_DELETE_POST, MUTATION_LIKE_POST } from 'src/graphql/post';
 import { useStore } from 'src/stores/main';
 import { Notify } from 'quasar';
+import { useMutation } from '@urql/vue';
 
 type LikeResponse = {
   likePost: Post;
+};
+type DeleteResponse = {
+  deletePost: Post;
 };
 
 export default defineComponent({
@@ -90,16 +93,14 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { mutate: deletePost } = useMutation(MUTATION_DELETE_POST);
+    const post = ref(props.post);
+    const { executeMutation: deletePost } =
+      useMutation<DeleteResponse>(MUTATION_DELETE_POST);
 
-    const { mutate: likePost, loading: loadingLikePost } =
-      useMutation<LikeResponse>(MUTATION_LIKE_POST, {
-        fetchPolicy: 'no-cache',
-      });
+    const { executeMutation: likePost, fetching: loadingLikePost } =
+      useMutation<LikeResponse>(MUTATION_LIKE_POST);
 
     const store = useStore();
-
-    const isLoggedIn = computed(() => store.isLoggedIn);
 
     const view_likes = ref(false);
 
@@ -107,37 +108,33 @@ export default defineComponent({
       lt,
       view_likes,
       loadingLikePost,
-      onLikePost(postId: number) {
-        if (!isLoggedIn.value) {
+      async onLikePost(postId: number) {
+        const { error } = await likePost({ postId });
+        if (error) {
           return Notify.create({
-            message: 'Você precisa estar logado para votar',
+            message: error.message,
             color: 'negative',
           });
         }
-        void likePost({ postId }).then((result) => {
-          if (!result?.data) return;
-          const post = result.data.likePost;
-          store.updatePostLikes(postId, post);
+      },
+      async OnDeleteClick(id: number) {
+        const { error } = await deletePost(
+          { postId: id },
+          { requestPolicy: 'network-only' }
+        );
+        if (error) {
+          return Notify.create({
+            message: `Erro ao deletar o post: ${error.message}`,
+            color: 'negative',
+          });
+        }
+        Notify.create({
+          message: 'Post deletado com sucesso',
+          color: 'positive',
         });
       },
-      OnDeleteClick(id: number) {
-        deletePost({ postId: id })
-          .then(() => {
-            store.deletePost(id);
-            Notify.create({
-              message: 'Post deletado com sucesso',
-              color: 'positive',
-            });
-          })
-          .catch(() => {
-            Notify.create({
-              message: 'Não foi possível deletar o post',
-              color: 'negative',
-            });
-          });
-      },
       isLoggedIn: store.isLoggedIn,
-      isOwner: computed(() => props.post.user.id === store.loggedUser?.id),
+      isOwner: computed(() => post.value?.user.id === store.loggedUser?.id),
     };
   },
 });

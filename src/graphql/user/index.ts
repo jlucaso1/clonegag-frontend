@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@urql/vue';
 
 export const QUERY_USERS = gql`
   query Users {

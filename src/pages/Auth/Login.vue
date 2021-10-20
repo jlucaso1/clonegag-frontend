@@ -17,7 +17,7 @@
         v-model="email"
         label="Seu email"
         lazy-rules
-        :rules="[(val) => (val && val.length > 0) || 'Digite algo']"
+        :rules="[requiredValidate || 'Digite algo']"
       />
 
       <q-input
@@ -27,7 +27,7 @@
         v-model="password"
         label="Sua senha"
         lazy-rules
-        :rules="[(val) => (val && val.length >= 8) || 'Minimo 8 algoritmos']"
+        :rules="[requiredValidate || 'Minimo 8 algoritmos']"
       />
 
       <q-btn
@@ -43,13 +43,13 @@
 </template>
 
 <script lang="ts">
-import { useMutation } from '@vue/apollo-composable';
 import { Notify } from 'quasar';
 import { MUTATION_LOGIN } from 'src/graphql/auth';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 import { useStore } from 'src/stores/main';
 import { User } from 'src/entities';
+import { useMutation } from '@urql/vue';
 
 type LoginResponse = {
   login: { access_token: string; user: User };
@@ -62,38 +62,39 @@ export default {
     const router = useRouter();
     const store = useStore();
 
-    const { mutate: login, loading: loginLoading } =
+    const { executeMutation: login, fetching: loginLoading } =
       useMutation<LoginResponse>(MUTATION_LOGIN);
 
     return {
+      requiredValidate(val: string) {
+        return val && val.length > 0;
+      },
       email,
       password,
       loginLoading,
 
-      onSubmit() {
-        login({
+      async onSubmit() {
+        const { data, error } = await login({
           loginInput: {
             email: email.value,
             password: password.value,
           },
-        })
-          .then(async (result) => {
-            if (!result?.data) return;
-            const { access_token, user } = result.data.login;
-            store.access_token = access_token;
-            store.loggedUser = user;
-            Notify.create({
-              message: 'Logado com sucesso!',
-              type: 'positive',
-            });
-            await router.push('/');
-          })
-          .catch(() => {
-            Notify.create({
-              message: 'Dados inválidos',
-              type: 'negative',
-            });
+        });
+        if (error) {
+          return Notify.create({
+            message: error.message,
+            type: 'negative',
           });
+        }
+        if (!data) return;
+        const { access_token, user } = data.login;
+        store.access_token = access_token;
+        store.loggedUser = user;
+        Notify.create({
+          message: 'Logado com sucesso!',
+          type: 'positive',
+        });
+        await router.push('/');
       },
     };
   },

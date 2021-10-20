@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@urql/vue';
 
 export const MUTATION_LOGIN = gql`
   mutation Login($loginInput: LoginInput!) {

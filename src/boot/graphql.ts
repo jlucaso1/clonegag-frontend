@@ -1,41 +1,21 @@
-import {
-  ApolloClient,
-  createHttpLink,
-  InMemoryCache
-} from '@apollo/client/core';
-import { setContext } from '@apollo/client/link/context';
-import { DefaultApolloClient } from '@vue/apollo-composable';
+import urql, { createClient } from '@urql/vue';
 import { boot } from 'quasar/wrappers';
 
-// HTTP connection to the API
-const httpLink = createHttpLink({
-  // You should use an absolute URL here
-  uri: process.env.DEV
+
+const gqlClient = createClient({
+  url: process.env.DEV
     ? 'http://localhost:3000/graphql'
     : 'https://clonegag.herokuapp.com/graphql',
-});
-
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('access_token');
-  // return the headers to the context so httpLink can read them
-  return {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    },
-  };
-});
-
-// Create the apollo client
-const apolloClient = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  fetchOptions: () => {
+    const token = localStorage.getItem('access_token');
+    return {
+      headers: { authorization: token ? `Bearer ${token}` : '' },
+    };
+  },
 });
 
 export default boot(({ app }) => {
-  app.provide(DefaultApolloClient, apolloClient);
+  app.use(urql, gqlClient);
 });
 
-export { apolloClient };
+export { gqlClient };

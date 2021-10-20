@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@urql/vue';
 
 export const QUERY_POSTS = gql`
   query Posts {
@@ -21,7 +21,9 @@ export const QUERY_POSTS = gql`
 
 export const MUTATION_DELETE_POST = gql`
   mutation deletePost($postId: Int!) {
-    deletePost(postId: $postId)
+    deletePost(postId: $postId) {
+      id
+    }
   }
 `;
 

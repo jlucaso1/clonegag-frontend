@@ -1,8 +1,6 @@
-import { useQuery, useResult } from '@vue/apollo-composable';
 import { useStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
-import { Post, User } from 'src/entities';
-import { QUERY_POSTS } from 'src/graphql/post';
+import { User } from 'src/entities';
 
 export const useStore = defineStore('main', {
   state: () => {
@@ -10,7 +8,6 @@ export const useStore = defineStore('main', {
       // all these properties will have their type inferred automatically
       access_token: useStorage<string | null>('access_token', null),
       loggedUser: null as User | null,
-      posts: [] as Post[],
     };
   },
   getters: {
@@ -28,29 +25,6 @@ export const useStore = defineStore('main', {
     logout() {
       this.access_token = null;
       this.loggedUser = null;
-    },
-    async fetchPosts() {
-      const { result, onResult, onError } = useQuery(QUERY_POSTS);
-      await new Promise((resolve, reject) => {
-        onResult(() => {
-          this.posts = useResult<Post[]>(result).value as Post[];
-          resolve(this.posts);
-        });
-        onError(() => {
-          reject({ message: 'Error fetching posts' });
-        });
-      });
-    },
-    deletePost(postId: number) {
-      this.posts = this.posts.filter((post) => post.id !== postId);
-    },
-    updatePostLikes(postId: number, post: Post) {
-      this.posts = this.posts.map((p) => {
-        if (p.id === postId) {
-          return { ...p, likes: post.likes };
-        }
-        return p;
-      });
     },
   },
 });

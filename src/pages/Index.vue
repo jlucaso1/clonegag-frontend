@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex justify-center">
     <div
-      v-if="posts.length"
+      v-if="posts"
       class="main"
       :class="`${lt.md ? 'q-py-md q-gutter-y-md' : 'q-py-lg q-gutter-y-lg'}`"
     >
@@ -25,43 +25,31 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 import Card from 'src/components/Card.vue';
 import { lt } from 'src/utils';
-import { useStore } from 'src/stores/main';
-import { useQuery, useResult } from '@vue/apollo-composable';
 import { QUERY_POSTS } from 'src/graphql/post';
 import { Post } from 'src/entities';
-import { Notify } from 'quasar';
+import { useQuery } from '@urql/vue';
+
+type ResponsePosts = {
+  posts: Post[];
+};
 
 export default defineComponent({
   name: 'PageIndex',
   components: { Card },
 
   setup() {
-    const store = useStore();
-
-    const {
-      result: resultPosts,
-      onResult,
-      onError,
-      loading,
-    } = useQuery(QUERY_POSTS, {}, { fetchPolicy: 'no-cache' });
-
-    onResult(() => {
-      store.posts = useResult<Post[]>(resultPosts).value as Post[];
-    });
-    onError(() => {
-      Notify.create({
-        message: 'Erro ao carregar os memes',
-        color: 'negative',
-      });
+    const { data, fetching: loading } = useQuery<ResponsePosts>({
+      query: QUERY_POSTS,
+      requestPolicy: 'network-only',
     });
 
     return {
       loading,
       lt,
-      posts: computed(() => store.posts),
+      posts: computed(() => data.value?.posts),
     };
   },
 });
