@@ -1,16 +1,10 @@
 <template>
-  <q-page class="flex full-height items-center justify-center">
+  <q-page class="flex full-height items-center justify-center" padding>
     <q-form
-      class="
-        q-gutter-xs
-        column
-        items-center
-        justify-center
-        max-width-599
-        full-width
-      "
+      class="q-gutter-xs column container main"
       @submit="onSubmit"
     >
+      <h3 class="q-my-sm text-center">Adicionar novo MEME</h3>
       <q-input
         class="full-width"
         v-model="post.title"

@@ -22,6 +22,10 @@
         <div>Adicionar meme</div>
       </q-btn>
     </div>
+
+    <q-page-sticky position="bottom-right" :offset="[20, 20]" v-if="lt.sm">
+      <q-btn color="white" text-color="black" fab icon="add" to="/addpost" />
+    </q-page-sticky>
   </q-page>
 </template>
 

@@ -21,11 +21,20 @@
           class="q-py-none rounded-borders flex justify-center items-center"
         >
           <q-img
+            loading="lazy"
+            no-native-menu
             v-if="post.type === 'IMAGE'"
             :src="post.src"
             :width="`${lt.sm ? '100%' : '50vw'}`"
-          />
+          >
+          </q-img>
           <player v-else :src="post.src" class="full-width" />
+          <q-btn
+            size="md"
+            icon="download"
+            class="absolute-bottom-right z-top q-mx-lg q-my-sm"
+            @click.prevent="download"
+          />
         </q-card-section>
         <q-card-section class="flex items-center">
           <div class="flex column items-center">
@@ -45,8 +54,14 @@
           </div>
           <q-space />
           <div class="text-no-wrap">
-            <div class="inline ellipsis text-subtitle2">
-              por {{ post.user.name }}
+            <div class="flex ellipsis text-subtitle2">
+              por &nbsp;
+              <div
+                class="cursor-pointer"
+                @click="$router.push(`/user/${post.user.id}`)"
+              >
+                {{ post.user.name }}
+              </div>
             </div>
           </div>
         </q-card-section>
@@ -76,6 +91,7 @@ import { MUTATION_DELETE_POST, MUTATION_LIKE_POST } from 'src/graphql/post';
 import { useStore } from 'src/stores/main';
 import { Notify } from 'quasar';
 import { useMutation } from '@urql/vue';
+import axios from 'axios';
 
 type LikeResponse = {
   likePost: Post;
@@ -135,6 +151,26 @@ export default defineComponent({
       },
       isLoggedIn: store.isLoggedIn,
       isOwner: computed(() => post.value?.user.id === store.loggedUser?.id),
+      download() {
+        axios
+          .get(post.value.src, {
+            responseType: 'blob',
+            //bypass cors
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+            },
+            withCredentials: true,
+          })
+          .then((response) => {
+            const blob = new Blob([response.data], { type: 'image/jpeg' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = post.value.title;
+            link.click();
+            URL.revokeObjectURL(link.href);
+          })
+          .catch(console.error);
+      },
     };
   },
 });

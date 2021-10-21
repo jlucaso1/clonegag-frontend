@@ -12,9 +12,9 @@
           class="mobile-only"
         />
 
-        <q-toolbar-title shrink>
+        <q-toolbar-title shrink class="q-px-none">
           <q-btn stretch flat dense size="lg" to="/">
-            <div class="flex items-center q-gutter-x-sm">
+            <div class="flex items-center q-gutter-x-sm justify-center no-wrap">
               <q-icon name="img:/icons/favicon-128x128.png" />
               <div>CloneGAG</div>
             </div>
@@ -61,6 +61,7 @@
 </template>
 
 <script lang="ts">
+import { Notify } from 'quasar';
 import { useStore } from 'src/stores/main';
 import { computed, defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -80,9 +81,14 @@ export default defineComponent({
       },
       isLoggedIn: computed(() => store.isLoggedIn),
       picture: computed(() => store.picture),
-      async reset() {
+      reset() {
         store.logout();
-        await router.push('/');
+        Notify.create({
+          message: 'Logout realizado com sucesso!',
+          color: 'positive',
+          icon: 'check',
+        });
+        router.go(0);
       },
     };
   },
